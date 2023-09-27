@@ -18,33 +18,15 @@ channel_id= 1139449991782477886
 
 @bot.event
 async def on_ready():
-  print(f'Logged in as {bot.user.name}') 
+    print(f'Logged in as {bot.user.name}')
 
-  async def send_messages():
-        while True:
-            # Gửi tin nhắn vào các kênh cụ thể
+    message_intervals = [10] * 11  # Gửi tin nhắn mỗi 10 giây, tổng cộng 11 lần
+    pause_interval = 60  # Đợi 3600 giây (1 giờ) trước khi gửi tin nhắn tiếp theo
+
+    while True:
+        for interval in message_intervals:
             await bot.get_channel(channel_id).send('$wa')
-            await asyncio.sleep(5)
-            await bot.get_channel(channel_id).send('$wa')
-            await asyncio.sleep(5)
-            await bot.get_channel(channel_id).send('$wa')
-            await asyncio.sleep(5)
-            await bot.get_channel(channel_id).send('$wa')
-            await asyncio.sleep(5)
-            await bot.get_channel(channel_id).send('$wa')
-            await asyncio.sleep(5)
-            await bot.get_channel(channel_id).send('$wa')
-            await asyncio.sleep(5)
-            await bot.get_channel(channel_id).send('$wa')
-            await asyncio.sleep(5)
-            await bot.get_channel(channel_id).send('$wa')
-            await asyncio.sleep(5)
-            await bot.get_channel(channel_id).send('$wa')
-            await asyncio.sleep(5)
-            await bot.get_channel(channel_id).send('$wa')
-            time.sleep(3600)  # Đợi 20 giây trước khi gửi tin nhắn tiếp theo (tùy chọn)
-    
-  # Bắt đầu nhiệm vụ gửi tin nhắn định kỳ khi bot đã sẵn sàng
-  asyncio.get_event_loop().create_task(send_messages())
+            await asyncio.sleep(interval)
+        await asyncio.sleep(pause_interval)  # Đợi 1 giờ trước khi gửi tin nhắn tiếp theo
 
 bot.run(token)

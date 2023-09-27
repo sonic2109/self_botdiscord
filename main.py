@@ -60,7 +60,7 @@ async def on_message(message):
         for tu in danh_sach_tu:
             if tu in embed_content:
                 #await asyncio.sleep(10)  # Đợi 10 giây
-                await message.channel.send(f"<a:Verify:980814232599793705> Nếu anh chưa claim **{tu}** thì claim hộ anh với.")
+                await message.channel.send(f"<a:Verify:980814232599793705> Claim giúp anh nhân vật trong anime: **{tu}** với đi nè.....")
                 await message.add_reaction("❤")
 
 #Thả emoji khi có chứa từ Tân trong tin nhắn.

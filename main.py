@@ -11,6 +11,7 @@ with open('config.json', 'r') as file:
 
 token = config['token']
 prefix = config['prefix']
+YOUR_SPECIFIC_CHANNEL_ID = config['YOUR_SPECIFIC_CHANNEL_ID']
 
 bot = commands.Bot(command_prefix=prefix, self_bot=True)
 
@@ -37,6 +38,9 @@ async def uidgi(ctx):
 
 @bot.event
 async def on_message(message):
+   if message.channel.id != YOUR_SPECIFIC_CHANNEL_ID:
+      return
+
    await bot.process_commands(message)
 
    if message.author == bot.user:

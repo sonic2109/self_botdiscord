@@ -11,10 +11,9 @@ with open('config.json', 'r') as file:
 
 token = config['token']
 prefix = config['prefix']
+channel_id_mudae = ['channel_id_mudae']
 
 bot = commands.Bot(command_prefix=prefix, self_bot=True)
-
-channel_id= 1139449991782477886
 
 @bot.event
 async def on_ready():
@@ -25,7 +24,7 @@ async def on_ready():
 
     while True:
         for interval in message_intervals:
-            await bot.get_channel(channel_id).send('$wa')
+            await bot.get_channel(channel_id_mudae).send('$wa')
             await asyncio.sleep(interval)
         await asyncio.sleep(pause_interval)  # Đợi 1 giờ trước khi gửi tin nhắn tiếp theo
 

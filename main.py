@@ -38,14 +38,15 @@ async def uidgi(ctx):
 
 @bot.event
 async def on_message(message):
+   if message.author == bot.user:
+      return
+
    if message.channel.id != YOUR_SPECIFIC_CHANNEL_ID:
+      await bot.process_commands(message)
       return
 
    await bot.process_commands(message)
 
-   if message.author == bot.user:
-      return
-   
    words = message.content.lower().split()
    with open('danhsach.txt','r') as file:
       danh_sach_tu = [line.strip().lower() for line in file]
@@ -60,21 +61,21 @@ async def on_message(message):
       await message.add_reaction("❤")'''
 # Kiểm tra embed trong tin nhắn
    for embed in message.embeds:
-        embed_content = embed.description.lower() if embed.description else ""
-        for tu in danh_sach_tu:
-            if tu in embed_content:
-                #await asyncio.sleep(10)  # Đợi 10 giây
-                await message.channel.send(f"<a:Verify:980814232599793705> Claim giúp anh nhân vật trong anime: **{tu}** với đi nè.....")
-                await message.add_reaction("❤")
+       embed_content = embed.description.lower() if embed.description else ""
+       for tu in danh_sach_tu:
+         if tu in embed_content:
+            #await asyncio.sleep(10)  # Đợi 10 giây
+            await message.channel.send(f"<a:Verify:980814232599793705> Claim giúp anh nhân vật trong anime: **{tu}** với đi nè.....")
+            await message.add_reaction("❤")
 
 #Thả emoji khi có chứa từ Tân trong tin nhắn.
    if any(word in ["tân"] for word in words):
-        await message.add_reaction("❤")
+      await message.add_reaction("❤")
 
 #Thả emoji khi được reply tin nhắn.
    if message.reference:
-        replied_message = await message.channel.fetch_message(message.reference.message_id)
-        if replied_message.author == bot.user:
-            await message.add_reaction("❤")
+      replied_message = await message.channel.fetch_message(message.reference.message_id)
+      if replied_message.author == bot.user:
+         await message.add_reaction("❤")
 
 bot.run(token)

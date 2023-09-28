@@ -11,7 +11,7 @@ with open('config.json', 'r') as file:
 
 token = config['token']
 prefix = config['prefix']
-channel_id_mudae = ['channel_id_mudae']
+channel_id_mudae = 1116033819552792616
 
 bot = commands.Bot(command_prefix=prefix, self_bot=True)
 

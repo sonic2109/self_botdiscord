@@ -109,11 +109,49 @@ async def wishremove(ctx, *, content):
     else:
         await ctx.send(f"**'{content}'** không tồn tại.")
 
+
+@bot.command()
+async def wishs(ctx, *, content):
+    # Kiểm tra xem nội dung đã tồn tại trong tệp hay chưa
+    if not is_content_in_file(content, 'wish_series.txt'):
+        # Ghi nội dung vào tệp wish_series.txt
+        with open('wish_series.txt', 'a') as file:
+            file.write(f"{content}\n")
+
+        await ctx.send(f"Đã thêm anime: **'{content}'**.")
+    else:
+        await ctx.send(f"Nội dung anime: **'{content}'** đã có.")
+
+# Hàm kiểm tra xem nội dung có tồn tại trong tệp hay không
+def is_content_in_file(content, file_path):
+    with open(file_path, 'r') as file:
+        return content.lower() in file.read().lower()
+
+@bot.command()
+async def wishremoves(ctx, *, content):
+    # Đọc danh sách từ tệp wish_series.txt
+    with open('wish_series.txt', 'r') as file:
+        lines = file.readlines()
+
+    # Loại bỏ nội dung khỏi danh sách
+    removed = False
+    with open('wish_series.txt', 'w') as file:
+        for line in lines:
+            if line.strip().lower() == content.lower():
+                removed = True
+            else:
+                file.write(line)
+
+    if removed:
+        await ctx.send(f"Đã xoá animne: **'{content}'**.")
+    else:
+        await ctx.send(f"Anime **'{content}'** không tồn tại.")
+
 @bot.event
 async def on_embed_message(message):
     # Kiểm tra nếu có embed
     if message.embeds and message.channel.id == YOUR_SPECIFIC_CHANNEL_ID:
-        with open('wish_harem.txt', 'r') as file:
+        with open('wish_series.txt', 'r') as file:
             danh_sach_tu = [line.strip().lower() for line in file]
 
         for embed in message.embeds:
@@ -123,7 +161,7 @@ async def on_embed_message(message):
             # Kiểm tra các từ trong danh sách
             for tu in danh_sach_tu_lower:
                 if tu in embed_content:
-                    await message.channel.send(f"<a:Verify:980814232599793705> Claim giúp anh nhân vật trong anime: **{tu}** với đi nè.....")
+                    await message.channel.send(f"<a:Verify:980814232599793705> Anime: **{tu}** nè Soníc.")
                     await message.add_reaction("❤")
 
 @bot.event

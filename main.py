@@ -12,13 +12,13 @@ with open('config.json', 'r') as file:
 token = config['token']
 prefix = config['prefix']
 YOUR_SPECIFIC_CHANNEL_ID = config['YOUR_SPECIFIC_CHANNEL_ID']
-channel_id_mudae = 1139449991782477886
+channel_id_mudae = 1116033819552792616
 
 bot = commands.Bot(command_prefix=prefix, self_bot=True)
 
 # Tạo biến để theo dõi trạng thái của chức năng và nội dung tin nhắn
 function_enabled = False
-message_content = "$wa"  # Nội dung mặc định
+message_content = "$w"  # Nội dung mặc định
 
 @bot.event
 async def on_ready():
@@ -43,8 +43,8 @@ async def stop(ctx):
 
 async def send_messages():
     global function_enabled, message_content
-    message_intervals = [5] * 11  # Gửi tin nhắn mỗi 10 giây, tổng cộng 11 lần
-    pause_interval = 3600  # Đợi 3600 giây (1 giờ) trước khi gửi tin nhắn tiếp theo
+    message_intervals = [5] * 13  # Gửi tin nhắn mỗi 10 giây, tổng cộng 11 lần
+    pause_interval = 3545  # Đợi 3600 giây (1 giờ) trước khi gửi tin nhắn tiếp theo
 
     while function_enabled:
         for interval in message_intervals:
